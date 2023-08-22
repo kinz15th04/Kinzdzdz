@@ -1,0 +1,118 @@
+getgenv().Options = {
+    Current = "None",
+    V1 = "\192", 
+    V2 = string.rep("B", 4200000),
+    Undo = "Naruto"
+}
+
+local Material = loadstring(game:HttpGet("https://raw.githubusercontent.com/Kinlei/MaterialLua/master/Module.lua"))()
+
+local X = Material.Load({
+    Title = "AFS - kinznosad.",
+    Style = 3,
+    SizeX = 500,
+    SizeY = 350,
+    Theme = "Dark",
+    ColorOverrides = {
+        MainFrame = Color3.fromRGB(35,35,35)
+    }
+})
+
+local Y = X.New({
+    Title = "Main"
+})
+
+Options.UI = Y.Button({
+    Text = "You have not selected any Dataloss Type",
+    Callback = function()
+
+        if Options.Current == "None" then return Options.UI:SetText("Please Select a Version!") end
+
+        if Type == "Start Dataloss" then
+            game:GetService("ReplicatedStorage").Remote.SetDungeonSetting:FireServer("Theme",  Options[Options.Current])
+            TextField:SetText("Started")
+        elseif Type == "Undo Dataloss" then
+            game:GetService("ReplicatedStorage").Remote.SetDungeonSetting:FireServer("Theme", Options.Undo)
+            TextField:SetText("Undone")
+        end
+    end
+})
+
+local D = Y.Dropdown({
+    Text = "Dataloss Type",
+    Callback = function(Value)
+        getgenv().Type = Value
+    end,
+    Options = {
+        "Start Dataloss",
+        "Undo Dataloss"
+    }
+})
+
+local D = Y.Dropdown({
+    Text = "Dataloss Version",
+    Callback = function(Value)
+        Options.Current = Value
+    end,
+    Options = {
+        "V1",
+        "V2"
+    }
+})
+
+local AE = Y.Button({
+    Text = "Hop sever co the Hop vao tym em:<",
+    Callback = function()
+        game:GetService("TeleportService"):Teleport(game.PlaceId, game:GetService("Players").LocalPlayer)
+    end
+})
+
+local AE2 = Y.Button({
+    Text = "Kick ra khoi game nhu kieu em kick anh ra khoi trai tim em...",
+    Callback = function()
+        game.Players.LocalPlayer:Kick("Em la ai vay?")
+    end
+})
+
+local AE3 = Y.Button({
+    Text = "Rejoin mup nhu em ma em lai tu choi toi...",
+    Callback = function()
+local ts = game:GetService("TeleportService")
+
+local p = game:GetService("Players").LocalPlayer
+
+
+
+ts:TeleportToPlaceInstance(game.PlaceId, game.JobId, p)
+    end
+})
+
+local AE4 = Y.Button({
+    Text = "Click using Yuto open egg no key",
+    Callback = function()
+repeat wait() until game:IsLoaded()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/Binintrozza/Bindeptraicodeafs/main/AFS"))() 
+    end
+})
+
+local AE5 = Y.Button({
+    Text = "Banana Hub crack",
+    Callback = function()
+loadstring(game:HttpGet('https://raw.githubusercontent.com/Blackout4781/Karma-Hub/main/BananaHubPack'))()
+    end
+})
+
+getgenv().TextField = Y.TextField({
+    Text = "Status",
+    Type = "Default"
+})
+
+while task.wait() do
+    if Type then
+        if Options.Current == "None" then
+        Options.UI:SetText("Please Select a Version!")
+        else
+        Options.UI:SetText(Type)
+        end
+    end
+end
